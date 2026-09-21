@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Content Desk — @munazir_officials_99</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12151A;
+    --surface:#191D24;
+    --surface-2:#1F242C;
+    --line:#2B313B;
+    --ink:#E9E7E0;
+    --ink-dim:#9BA3AF;
+    --signal:#E0A72E;
+    --signal-dim:#8A6A1F;
+    --good:#4FA88F;
+    --bad:#D9695A;
+    --radius:10px;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:inherit;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  h1,h2,h3,.disp{
+    font-family:'Space Grotesk',system-ui,sans-serif;
+  }
+  a{color:var(--signal);}
+
+  header.masthead{
+    position:sticky;
+    top:0;
+    z-index:5;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+    padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 14px;
+  }
+  .masthead-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .masthead h1{
+    font-size:1.15rem;
+    margin:0;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  .masthead .sub{
+    color:var(--ink-dim);
+    font-size:0.8rem;
+    margin-top:2px;
+  }
+  .status-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--ink-dim);
+    display:inline-block;
+    margin-right:6px;
+  }
+  .status-dot.live{background:var(--good);}
+  .status-dot.stale{background:var(--bad);}
+  #freshness{font-size:0.75rem;color:var(--ink-dim);}
+
+  main{
+    max-width:640px;
+    margin:0 auto;
+    padding:18px 14px 60px;
+  }
+
+  .agent{
+    margin-bottom:28px;
+  }
+  .agent-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+  }
+  .agent-tag{
+    font-size:0.68rem;
+    color:var(--bg);
+    background:var(--signal);
+    padding:2px 7px;
+    border-radius:4px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .agent-head h2{
+    font-size:1.02rem;
+    margin:0;
+    font-weight:600;
+  }
+  .agent-desc{
+    color:var(--ink-dim);
+    font-size:0.82rem;
+    margin:0 0 12px;
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:14px;
+    margin-bottom:10px;
+  }
+  .card:last-child{margin-bottom:0;}
+
+  .bar-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:11px;
+  }
+  .bar-row:last-child{margin-bottom:0;}
+  .bar-label{
+    width:118px;
+    flex-shrink:0;
+    font-size:0.78rem;
+    color:var(--ink-dim);
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .bar-label.me{color:var(--ink);font-weight:600;}
+  .bar-track{
+    flex:1;
+    background:var(--surface-2);
+    border-radius:5px;
+    height:10px;
+    overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    background:var(--ink-dim);
+    border-radius:5px;
+  }
+  .bar-fill.me{background:var(--signal);}
+  .bar-val{
+    width:56px;
+    text-align:right;
+    flex-shrink:0;
+    font-size:0.78rem;
+    color:var(--ink-dim);
+  }
+
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .stat-box{
+    background:var(--surface-2);
+    border-radius:8px;
+    padding:12px;
+  }
+  .stat-box .num{
+    font-size:1.3rem;
+    font-weight:700;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .stat-box .lbl{
+    font-size:0.72rem;
+    color:var(--ink-dim);
+    margin-top:2px;
+  }
+
+  .idea-card, .hook-card{
+    border-left:3px solid var(--signal);
+    padding-left:11px;
+  }
+  .idea-meta{
+    font-size:0.72rem;
+    color:var(--ink-dim);
+    margin-bottom:5px;
+  }
+  .idea-caption{
+    font-size:0.88rem;
+    color:var(--ink);
+  }
+  .idea-why{
+    font-size:0.78rem;
+    color:var(--good);
+    margin-top:6px;
+  }
+
+  .hook-line{
+    font-size:0.9rem;
+    font-style:italic;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .hook-fill{
+    font-size:0.78rem;
+    color:var(--ink-dim);
+    background:var(--surface-2);
+    border-radius:6px;
+    padding:8px 10px;
+  }
+
+  .day-row{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .day-row:last-child{border-bottom:none;}
+  .day-name{
+    width:38px;
+    flex-shrink:0;
+    font-size:0.78rem;
+    color:var(--ink-dim);
+    font-weight:600;
+    padding-top:1px;
+  }
+  .day-content{flex:1;}
+  .day-type{
+    display:inline-block;
+    font-size:0.68rem;
+    color:var(--signal);
+    border:1px solid var(--signal-dim);
+    border-radius:4px;
+    padding:1px 6px;
+    margin-bottom:4px;
+  }
+  .day-idea{font-size:0.85rem;}
+
+  .dm-cat{
+    font-size:0.78rem;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:4px;
+  }
+  .dm-template{
+    font-size:0.83rem;
+    color:var(--ink-dim);
+    background:var(--surface-2);
+    border-radius:6px;
+    padding:9px 10px;
+  }
+  .dm-note{
+    font-size:0.72rem;
+    color:var(--ink-dim);
+    margin-top:8px;
+  }
+
+  .empty{
+    color:var(--ink-dim);
+    font-size:0.85rem;
+    text-align:center;
+    padding:20px 10px;
+  }
+  .empty code{
+    background:var(--surface-2);
+    padding:1px 5px;
+    border-radius:4px;
+    font-size:0.8rem;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--ink-dim);
+    font-size:0.72rem;
+    padding:20px 14px 30px;
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-row">
+    <div>
+      <h1>Content Desk</h1>
+      <div class="sub">@munazir_officials_99 · politics niche</div>
+    </div>
+    <div id="freshness"><span class="status-dot" id="statusDot"></span><span id="statusText">loading…</span></div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="empty">Loading data.json…</div>
+</main>
+
+<footer>Data refreshes daily via GitHub Actions + Apify · rule-based, no AI cost</footer>
+
+<script>
+const main = document.getElementById('main');
+
+async function loadData(){
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  try{
+    const res = await fetch('data.json', {cache:'no-store'});
+    if(!res.ok) throw new Error('not found');
+    const data = await res.json();
+    render(data);
+    const genAt = new Date(data.generated_at);
+    const hrsAgo = (Date.now() - genAt.getTime()) / 3600000;
+    if(hrsAgo < 30){
+      dot.className = 'status-dot live';
+      txt.textContent = 'updated ' + timeAgo(genAt);
+    } else {
+      dot.className = 'status-dot stale';
+      txt.textContent = 'stale — ' + timeAgo(genAt);
+    }
+  }catch(e){
+    dot.className = 'status-dot stale';
+    txt.textContent = 'no data';
+    main.innerHTML = '<div class="empty">Could not load <code>data.json</code>.<br>Make sure the GitHub Action has run at least once and this page sits in the same <code>dashboard/</code> folder.</div>';
+  }
+}
+
+function timeAgo(d){
+  const mins = Math.floor((Date.now() - d.getTime())/60000);
+  if(mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins/60);
+  if(hrs < 24) return hrs + 'h ago';
+  return Math.floor(hrs/24) + 'd ago';
+}
+
+function escapeHtml(s){
+  return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function render(data){
+  const myHandle = data.my_handle;
+  const accounts = data.accounts || {};
+  const handles = Object.keys(accounts);
+  const competitorHandles = handles.filter(h => h !== myHandle);
+
+  const stats = handles.map(h => {
+    const posts = accounts[h] || [];
+    const totalLikes = posts.reduce((s,p) => s + (p.likes||0), 0);
+    const totalComments = posts.reduce((s,p) => s + (p.comments||0), 0);
+    const avgLikes = posts.length ? Math.round(totalLikes/posts.length) : 0;
+    const avgEngagement = posts.length ? Math.round((totalLikes+totalComments)/posts.length) : 0;
+    return {handle:h, posts, totalLikes, totalComments, avgLikes, avgEngagement, postCount:posts.length};
+  });
+  const maxAvgEng = Math.max(1, ...stats.map(s => s.avgEngagement));
+  stats.sort((a,b) => b.avgEngagement - a.avgEngagement);
+
+  let allCompetitorPosts = [];
+  competitorHandles.forEach(h => {
+    (accounts[h]||[]).forEach(p => allCompetitorPosts.push(Object.assign({handle:h}, p)));
+  });
+  allCompetitorPosts.sort((a,b) => (b.likes||0) - (a.likes||0));
+  const topPosts = allCompetitorPosts.slice(0, 5);
+
+  main.innerHTML = renderAnalyst(stats, maxAvgEng, myHandle) +
+                    renderIdeator(topPosts) +
+                    renderHooks(topPosts) +
+                    renderPlanner(topPosts) +
+                    renderDM();
+}
+
+function renderAnalyst(stats, maxAvgEng, myHandle){
+  const bars = stats.map(s => {
+    const pct = Math.max(4, Math.round((s.avgEngagement/maxAvgEng)*100));
+    const isMe = s.handle === myHandle;
+    return `<div class="bar-row">
+      <div class="bar-label ${isMe?'me':''}">${isMe?'You':'@'+escapeHtml(s.handle)}</div>
+      <div class="bar-track"><div class="bar-fill ${isMe?'me':''}" style="width:${pct}%"></div></div>
+      <div class="bar-val">${s.avgEngagement}</div>
+    </div>`;
+  }).join('');
+
+  const my = stats.find(s => s.handle === myHandle) || {avgLikes:0, postCount:0};
+  const best = stats[0];
+
+  return `<section class="agent" id="analyst">
+    <div class="agent-head"><span class="agent-tag">01 · ANALYST</span><h2>How you stack up</h2></div>
+    <p class="agent-desc">Average engagement (likes + comments per post) across your account and competitors.</p>
+    <div class="card">${bars}</div>
+    <div class="card stat-grid">
+      <div class="stat-box"><div class="num">${my.avgLikes}</div><div class="lbl">your avg likes / post</div></div>
+      <div class="stat-box"><div class="num">${my.postCount}</div><div class="lbl">posts tracked</div></div>
+    </div>
+    ${best && best.handle !== myHandle ? `<p class="agent-desc" style="margin-top:8px">Highest average engagement right now: <strong style="color:var(--ink)">@${escapeHtml(best.handle)}</strong> — worth studying their format.</p>` : ''}
+  </section>`;
+}
+
+function renderIdeator(topPosts){
+  if(!topPosts.length){
+    return `<section class="agent" id="ideator"><div class="agent-head"><span class="agent-tag">02 · IDEATOR</span><h2>Ideas from top performers</h2></div><div class="card empty">No competitor posts found yet.</div></section>`;
+  }
+  const cards = topPosts.map(p => {
+    const caption = (p.caption||'').slice(0,140);
+    return `<div class="card idea-card">
+      <div class="idea-meta">@${escapeHtml(p.handle)} · ${p.likes||0} likes · ${p.comments||0} comments · ${escapeHtml(p.type||'post')}</div>
+      <div class="idea-caption">${escapeHtml(caption)}${(p.caption||'').length>140?'…':''}</div>
+      <div class="idea-why">↳ Try your own angle on this topic — it's outperforming their average.</div>
+    </div>`;
+  }).join('');
+  return `<section class="agent" id="ideator">
+    <div class="agent-head"><span class="agent-tag">02 · IDEATOR</span><h2>Ideas from top performers</h2></div>
+    <p class="agent-desc">Top 5 competitor posts by likes right now — steal the angle, not the words.</p>
+    ${cards}
+  </section>`;
+}
+
+function renderHooks(topPosts){
+  if(!topPosts.length){
+    return `<section class="agent" id="hooks"><div class="agent-head"><span class="agent-tag">03 · HOOK &amp; SCRIPT</span><h2>Hook templates</h2></div><div class="card empty">No captions to pull hooks from yet.</div></section>`;
+  }
+  const cards = topPosts.slice(0,4).map(p => {
+    const firstLine = (p.caption||'').split(/[\n.!?]/)[0].trim().slice(0,90) || '(no caption)';
+    return `<div class="card hook-card">
+      <div class="hook-line">"${escapeHtml(firstLine)}${firstLine.length>=90?'…':''}"</div>
+      <div class="hook-fill">Your version → open with a bold claim or question about [your topic], mirror this line's rhythm, then cut straight to your take.</div>
+    </div>`;
+  }).join('');
+  return `<section class="agent" id="hooks">
+    <div class="agent-head"><span class="agent-tag">03 · HOOK &amp; SCRIPT</span><h2>Hook templates</h2></div>
+    <p class="agent-desc">Opening lines from high-performing posts, turned into fill-in templates.</p>
+    ${cards}
+  </section>`;
+}
+
+function renderPlanner(topPosts){
+  const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const types = ['Reel','Carousel','Photo','Reel','Carousel','Reel','Photo'];
+  const rows = days.map((d,i) => {
+    const idea = topPosts[i % Math.max(1,topPosts.length)];
+    const ideaText = idea ? (idea.caption||'').split(/[\n.!?]/)[0].trim().slice(0,70) : 'Pull from Ideator above';
+    return `<div class="day-row">
+      <div class="day-name">${d}</div>
+      <div class="day-content">
+        <span class="day-type">${types[i]}</span>
+        <div class="day-idea">${escapeHtml(ideaText)}${ideaText.length>=70?'…':''}</div>
+      </div>
+    </div>`;
+  }).join('');
+  return `<section class="agent" id="planner">
+    <div class="agent-head"><span class="agent-tag">04 · PLANNER</span><h2>This week's slate</h2></div>
+    <p class="agent-desc">A starting rotation — swap any day, this is a draft not a rule.</p>
+    <div class="card">${rows}</div>
+  </section>`;
+}
+
+function renderDM(){
+  const cats = [
+    {name:'Genuine question', reply:'Thanks for asking — [answer the specific point]. Appreciate you engaging with this one.'},
+    {name:'Disagreement / troll', reply:'Fair to see it differently — here is the source I used: [link]. Happy to keep discussing if it is in good faith.'},
+    {name:'Collab / promo request', reply:'Thanks for reaching out — send over more details (audience size, past work) and I will take a look.'},
+    {name:'Spam / bot', reply:'(no reply — block/report)'}
+  ];
+  const cards = cats.map(c => `<div class="card">
+    <div class="dm-cat">${escapeHtml(c.name)}</div>
+    <div class="dm-template">${escapeHtml(c.reply)}</div>
+  </div>`).join('');
+  return `<section class="agent" id="dm">
+    <div class="agent-head"><span class="agent-tag">05 · DM MANAGER</span><h2>Reply templates</h2></div>
+    <p class="agent-desc">Static starting templates. Reading real DMs needs Instagram's Graph API (business account + app review) — not wired up yet.</p>
+    ${cards}
+    <p class="dm-note">Want this fully automated later? That's the next upgrade once the account qualifies for a Business/Creator Instagram API connection.</p>
+  </section>`;
+}
+
+loadData();
+</script>
+</body>
+</html>
