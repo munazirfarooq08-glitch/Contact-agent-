@@ -1,6 +1,11 @@
  name: Pull Instagram Data
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/pull_data.yml'
   schedule:
     - cron: '0 3 * * *'
   workflow_dispatch:
