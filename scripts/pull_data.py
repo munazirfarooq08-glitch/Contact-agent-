@@ -19,7 +19,8 @@ def fetch_posts(handle):
     }
     run = client.actor("apify/instagram-scraper").call(run_input=run_input)
     posts = []
-    for item in client.dataset(run["defaultDatasetId"]).iterate_items():
+    dataset_id = run["defaultDatasetId"] if isinstance(run, dict) else run.default_dataset_id
+for item in client.dataset(dataset_id).iterate_items():
         posts.append({
             "caption": item.get("caption", ""),
             "likes": item.get("likesCount", 0),
