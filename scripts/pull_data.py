@@ -7,7 +7,7 @@ APIFY_TOKEN = os.environ["APIFY_API_TOKEN"]
 MY_HANDLE = os.environ["MY_INSTAGRAM_HANDLE"].strip()
 COMPETITORS = [h.strip() for h in os.environ["COMPETITOR_HANDLES"].split(",") if h.strip()]
 
-RESULTS_LIMIT = 30  # posts per account
+RESULTS_LIMIT = 30
 
 client = ApifyClient(APIFY_TOKEN)
 
@@ -18,9 +18,9 @@ def fetch_posts(handle):
         "resultsLimit": RESULTS_LIMIT,
     }
     run = client.actor("apify/instagram-scraper").call(run_input=run_input)
-    posts = []
     dataset_id = run["defaultDatasetId"] if isinstance(run, dict) else run.default_dataset_id
-for item in client.dataset(dataset_id).iterate_items():
+    posts = []
+    for item in client.dataset(dataset_id).iterate_items():
         posts.append({
             "caption": item.get("caption", ""),
             "likes": item.get("likesCount", 0),
